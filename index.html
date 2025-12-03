@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sproutly - Habit Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .intro h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .intro p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+            transform: translateY(-2px);
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section h3 {
+            color: #667eea;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .section h4 {
+            color: #764ba2;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .section p,
+        .section li {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .section ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .back-btn {
+            margin-bottom: 20px;
+        }
+
+        .toc {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .toc h4 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .toc ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .toc li {
+            padding: 8px 0;
+            color: #667eea;
+            cursor: pointer;
+        }
+
+        .toc li:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🌱</div>
+            <h1>Sproutly</h1>
+            <p>Bangun Kebiasaan Positif dengan Cara yang Menyenangkan</p>
+        </div>
+
+        <div class="content">
+            <!-- Home Section -->
+            <div id="home" class="section active">
+                <div class="intro">
+                    <h2>Selamat Datang di Sproutly</h2>
+                    <p>Sproutly adalah aplikasi pelacak kebiasaan yang membantu Anda membangun dan mempertahankan
+                        kebiasaan positif. Setiap kebiasaan diwakili oleh tanaman yang tumbuh seiring progress Anda!</p>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn btn-primary" onclick="showSection('manual')">📖 User Manual</button>
+                    <button class="btn btn-secondary" onclick="showSection('privacy')">🔒 Privacy Policy</button>
+                </div>
+            </div>
+
+            <!-- Manual Book Section -->
+            <div id="manual" class="section">
+                <button class="btn btn-secondary back-btn" onclick="showSection('home')">← Kembali</button>
+
+                <h2>User Manual - Sproutly</h2>
+
+                <div class="toc">
+                    <h4>Daftar Isi</h4>
+                    <ul>
+                        <li>1. Pengenalan Aplikasi</li>
+                        <li>2. Antarmuka Utama</li>
+                        <li>3. Fitur-Fitur Aplikasi</li>
+                        <li>4. Panduan Penggunaan</li>
+                        <li>5. FAQ</li>
+                    </ul>
+                </div>
+
+                <h3>1. Pengenalan Aplikasi</h3>
+                <p>Sproutly adalah aplikasi pelacak kebiasaan (habit tracker) yang membantu Anda membangun dan
+                    mempertahankan kebiasaan positif dengan cara yang menyenangkan dan visual. Aplikasi ini menggunakan
+                    metafora tanaman yang tumbuh sebagai representasi dari perkembangan kebiasaan Anda.</p>
+
+                <h4>Konsep Utama</h4>
+                <ul>
+                    <li><strong>Sprout (Tunas):</strong> Setiap kebiasaan diwakili oleh tanaman yang akan tumbuh seiring
+                        Anda menyelesaikan kebiasaan tersebut</li>
+                    <li><strong>5 Tahap Pertumbuhan:</strong> Tanaman akan berkembang dari tunas kecil hingga pohon
+                        besar melalui 5 tahap</li>
+                    <li><strong>Garden (Taman):</strong> Kebiasaan yang telah selesai dapat dipindahkan ke taman sebagai
+                        kenang-kenangan</li>
+                </ul>
+
+                <h3>2. Antarmuka Utama</h3>
+
+                <h4>Bagian Atas (Header Bar)</h4>
+                <ul>
+                    <li>Logo Sproutly: Terletak di pojok kiri atas</li>
+                    <li>Tombol Garden: Menampilkan taman kebiasaan yang telah diselesaikan</li>
+                    <li>Tombol Profile: Mengakses informasi akun dan statistik Anda</li>
+                </ul>
+
+                <h4>Bagian Tengah</h4>
+                <ul>
+                    <li>Status Indicator: Menampilkan status mood atau kondisi Anda saat ini</li>
+                    <li>Sprout Display: Menampilkan visual tanaman yang mewakili kebiasaan aktif Anda</li>
+                    <li>Input Bar: Area untuk menambahkan kebiasaan baru</li>
+                </ul>
+
+                <h4>Bagian Bawah (Bottom Navigation)</h4>
+                <ul>
+                    <li>Let Go: Memindahkan kebiasaan ke taman</li>
+                    <li>Water (Tombol Utama): Menandai kebiasaan sebagai selesai</li>
+                    <li>List Menu: Menampilkan daftar semua kebiasaan</li>
+                    <li>Chat AI: Berbicara dengan Sproutly AI untuk mendapatkan rekomendasi</li>
+                </ul>
+
+                <h3>3. Fitur-Fitur Aplikasi</h3>
+
+                <h4>Menambah Kebiasaan Baru</h4>
+                <ol>
+                    <li>Ketik nama kebiasaan di field input (contoh: "Push up 20x", "Read book 30 min")</li>
+                    <li>Tekan tombol Edit untuk mengatur jadwal</li>
+                    <li>Pilih hari-hari dalam seminggu (S, M, T, W, T, F, S)</li>
+                    <li>Atur waktu pelaksanaan (dapat menambah beberapa waktu)</li>
+                    <li>Tekan tombol Add untuk menyimpan</li>
+                </ol>
+
+                <p><strong>Catatan Penting:</strong></p>
+                <ul>
+                    <li>Maksimal 5 kebiasaan aktif dalam satu waktu</li>
+                    <li>Minimal harus memilih 1 hari dalam seminggu</li>
+                    <li>Setiap kebiasaan dapat memiliki beberapa waktu pelaksanaan dalam sehari</li>
+                </ul>
+
+                <h4>Tahap Pertumbuhan Tanaman</h4>
+                <ul>
+                    <li>Stage 1: 0-2 kali selesai (Tunas kecil)</li>
+                    <li>Stage 2: 3-4 kali selesai (Tunas tumbuh)</li>
+                    <li>Stage 3: 5-6 kali selesai (Tanaman kecil)</li>
+                    <li>Stage 4: 7-9 kali selesai (Pohon kecil)</li>
+                    <li>Stage 5: 10+ kali selesai (Pohon besar - maksimal)</li>
+                </ul>
+
+                <h4>Sproutly AI Assistant</h4>
+                <p>Tekan tombol Chat AI untuk berbicara dengan asisten AI yang dapat:</p>
+                <ul>
+                    <li>Memberikan rekomendasi kebiasaan umum atau berdasarkan hobi Anda</li>
+                    <li>Menyederhanakan deskripsi kebiasaan menjadi ringkas dan spesifik</li>
+                    <li>Menjawab pertanyaan umum tentang kebiasaan dan produktivitas</li>
+                </ul>
+
+                <h3>4. Tips Membangun Kebiasaan</h3>
+                <ul>
+                    <li><strong>Mulai dari yang Kecil:</strong> Awali dengan 1-2 kebiasaan saja</li>
+                    <li><strong>Gunakan Waktu Spesifik:</strong> Tentukan waktu yang realistis dan sesuai rutinitas Anda
+                    </li>
+                    <li><strong>Manfaatkan AI:</strong> Minta rekomendasi saat kehabisan ide</li>
+                    <li><strong>Visualisasi Progress:</strong> Perhatikan tanaman tumbuh sebagai motivasi</li>
+                    <li><strong>Konsistensi > Intensitas:</strong> Lebih baik rutin dengan target kecil daripada
+                        sporadis dengan target besar</li>
+                </ul>
+
+                <h3>5. FAQ</h3>
+
+                <h4>Q: Berapa maksimal kebiasaan yang bisa saya buat?</h4>
+                <p>A: Maksimal 5 kebiasaan aktif dalam satu waktu. Jika ingin menambah lebih, Anda harus menghapus atau
+                    memindahkan kebiasaan lama ke Garden.</p>
+
+                <h4>Q: Apa yang terjadi jika saya melewatkan satu hari?</h4>
+                <p>A: Counter "Skip" akan bertambah. Namun, tidak ada penalti - Anda bisa melanjutkan kebiasaan di hari
+                    berikutnya. Progress tanaman tidak berkurang.</p>
+
+                <h4>Q: Berapa kali saya harus menyelesaikan kebiasaan untuk mencapai Stage 5?</h4>
+                <p>A: Minimal 10 kali penyelesaian untuk mencapai Stage 5 (pohon besar maksimal).</p>
+
+                <h4>Q: Apakah tanaman bisa mati atau menyusut?</h4>
+                <p>A: Tidak. Tanaman hanya bisa tumbuh, tidak pernah menyusut atau mati. Progress Anda aman.</p>
+
+                <h4>Q: Apakah data saya tersimpan di cloud?</h4>
+                <p>A: Data tersimpan secara lokal di perangkat Anda menggunakan SharedPreferences Android. Data tidak
+                    dikirim ke server eksternal.</p>
+            </div>
+
+            <!-- Privacy Policy Section -->
+            <div id="privacy" class="section">
+                <button class="btn btn-secondary back-btn" onclick="showSection('home')">← Kembali</button>
+
+                <h2>Privacy Policy - Sproutly</h2>
+                <p><em>Terakhir diperbarui: Desember 2024</em></p>
+
+                <h3>1. Pendahuluan</h3>
+                <p>Sproutly ("kami", "aplikasi") berkomitmen untuk melindungi privasi pengguna. Kebijakan privasi ini
+                    menjelaskan bagaimana kami mengumpulkan, menggunakan, dan melindungi informasi Anda saat menggunakan
+                    aplikasi Sproutly.</p>
+
+                <h3>2. Informasi yang Kami Kumpulkan</h3>
+
+                <h4>2.1 Informasi Profil</h4>
+                <p>Kami mengumpulkan informasi yang Anda berikan secara sukarela:</p>
+                <ul>
+                    <li>Nama</li>
+                    <li>Usia</li>
+                    <li>Hobi</li>
+                </ul>
+
+                <h4>2.2 Data Kebiasaan</h4>
+                <p>Kami menyimpan data terkait kebiasaan Anda:</p>
+                <ul>
+                    <li>Nama kebiasaan yang Anda buat</li>
+                    <li>Jadwal dan waktu pelaksanaan kebiasaan</li>
+                    <li>Progress penyelesaian kebiasaan</li>
+                    <li>Statistik (jumlah kebiasaan aktif, kebiasaan selesai)</li>
+                </ul>
+
+                <h4>2.3 Data Penggunaan</h4>
+                <p>Kami tidak mengumpulkan data analitik atau tracking penggunaan aplikasi.</p>
+
+                <h3>3. Bagaimana Kami Menggunakan Informasi Anda</h3>
+                <p>Informasi yang dikumpulkan digunakan untuk:</p>
+                <ul>
+                    <li>Menyediakan dan memelihara fungsi aplikasi</li>
+                    <li>Menyimpan preferensi dan pengaturan Anda</li>
+                    <li>Memberikan rekomendasi kebiasaan personal melalui AI (berdasarkan hobi)</li>
+                    <li>Menampilkan statistik dan progress Anda</li>
+                </ul>
+
+                <h3>4. Penyimpanan Data</h3>
+
+                <h4>4.1 Penyimpanan Lokal</h4>
+                <p>Semua data Anda disimpan secara lokal di perangkat Anda menggunakan SharedPreferences Android. Data
+                    tidak dikirim atau disimpan di server eksternal kami.</p>
+
+                <h4>4.2 Keamanan Data</h4>
+                <p>Karena data tersimpan secara lokal, keamanan data bergantung pada keamanan perangkat Anda. Kami
+                    menyarankan untuk:</p>
+                <ul>
+                    <li>Menggunakan kunci layar pada perangkat</li>
+                    <li>Menjaga perangkat tetap aman dari akses tidak sah</li>
+                    <li>Melakukan backup data secara berkala</li>
+                </ul>
+
+                <h3>5. Berbagi Data dengan Pihak Ketiga</h3>
+
+                <h4>5.1 Sproutly AI (Powered by Senopati AI)</h4>
+                <p>Ketika Anda menggunakan fitur AI Assistant:</p>
+                <ul>
+                    <li>Nama, Usia, dan Hobi Anda mungkin dikirim ke layanan AI untuk memberikan rekomendasi personal
+                    </li>
+                    <li>Percakapan Anda dengan AI diproses untuk memberikan respons yang relevan</li>
+                    <li>Data kebiasaan Anda TIDAK dibagikan dengan layanan AI</li>
+                </ul>
+
+                <h4>5.2 Pihak Ketiga Lainnya</h4>
+                <p>Kami TIDAK menjual, menyewakan, atau membagikan informasi pribadi Anda kepada pihak ketiga lain untuk
+                    tujuan komersial.</p>
+
+                <h3>6. Koneksi Internet</h3>
+                <p>Aplikasi memerlukan koneksi internet hanya untuk:</p>
+                <ul>
+                    <li>Fitur Sproutly AI Assistant</li>
+                </ul>
+                <p>Semua fitur lainnya dapat digunakan sepenuhnya offline.</p>
+
+                <h3>7. Hak Pengguna</h3>
+                <p>Anda memiliki hak untuk:</p>
+                <ul>
+                    <li><strong>Mengakses Data:</strong> Semua data tersedia di aplikasi (Profil dan Statistik)</li>
+                    <li><strong>Mengedit Data:</strong> Anda dapat mengubah informasi profil kapan saja</li>
+                    <li><strong>Menghapus Data:</strong> Gunakan tombol Reset di Profil untuk menghapus semua data</li>
+                    <li><strong>Menghapus Aplikasi:</strong> Uninstall aplikasi akan menghapus semua data secara
+                        permanen</li>
+                </ul>
+
+                <h3>8. Data Anak-Anak</h3>
+                <p>Sproutly tidak secara khusus menargetkan anak-anak di bawah usia 13 tahun. Jika Anda adalah orang tua
+                    atau wali dan mengetahui bahwa anak Anda telah memberikan informasi pribadi, silakan hubungi kami.
+                </p>
+
+                <h3>9. Perubahan Kebijakan Privasi</h3>
+                <p>Kami dapat memperbarui Kebijakan Privasi ini dari waktu ke waktu. Perubahan akan diberitahukan
+                    melalui:</p>
+                <ul>
+                    <li>Update pada halaman ini dengan tanggal revisi terbaru</li>
+                    <li>Notifikasi dalam aplikasi (untuk perubahan signifikan)</li>
+                </ul>
+
+                <h3>10. Kontak</h3>
+                <p>Jika Anda memiliki pertanyaan atau kekhawatiran tentang Kebijakan Privasi ini, silakan hubungi kami:
+                </p>
+                <ul>
+                    <li>Email: support@sproutly.app (placeholder)</li>
+                    <li>Melalui feedback di aplikasi</li>
+                </ul>
+
+                <h3>11. Persetujuan</h3>
+                <p>Dengan menggunakan aplikasi Sproutly, Anda menyetujui pengumpulan dan penggunaan informasi sesuai
+                    dengan Kebijakan Privasi ini.</p>
+
+                <hr style="margin: 30px 0; border: none; border-top: 1px solid #ddd;">
+
+                <p><strong>Ringkasan Singkat:</strong></p>
+                <ul>
+                    <li>✅ Data tersimpan lokal di perangkat Anda</li>
+                    <li>✅ Tidak ada tracking atau analytics</li>
+                    <li>✅ AI hanya menggunakan Nama, Usia, Hobi untuk rekomendasi</li>
+                    <li>✅ Data kebiasaan Anda tetap privat</li>
+                    <li>✅ Anda dapat menghapus semua data kapan saja</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            document.getElementById(sectionId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+
+</html>
